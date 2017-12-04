@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.1"
+version       = "0.1.2"
 author        = "Konstantin Molchanov"
 description   = "Advent of Code 2017 in Nim"
 license       = "MIT"

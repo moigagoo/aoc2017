@@ -10,7 +10,7 @@ Options:
   -h --help         Show this screen.
 """
 
-import aoc2017pkg/day1
+import aoc2017pkg/[day1, day2]
 import strutils
 
 import docopt
@@ -24,13 +24,17 @@ when isMainModule:
       day = parseInt($args["--day"])
       part = parseInt($args["--part"])
       input = $args["<input>"]
-      answerLine = "The answer is $#"
+      answerLine = "The answer is $#."
 
     case day
     of 1:
       case part
       of 1: echo answerLine % $day1.part1(input)
       of 2: echo answerLine % $day1.part2(input)
+      else: discard
+    of 2:
+      case part
+      of 1: echo answerLine % $day2.part1(input)
       else: discard
     else: discard
 
@@ -39,4 +43,5 @@ when isMainModule:
 
     case day
     of 1: day1.test()
+    of 2: day2.test()
     else: discard
