@@ -35,6 +35,7 @@ when isMainModule:
     of 2:
       case part
       of 1: echo answerLine % $day2.part1(readFile(input))
+      of 2: echo answerLine % $day2.part2(readFile(input))
       else: discard
     else: discard
 
