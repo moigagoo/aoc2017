@@ -2,22 +2,17 @@ import strutils
 
 
 proc part1*(input: string): int =
-  let inputLine = readFile(input)
-
-  for i, c in inputLine:
-    if c == inputLine[(i+1) mod len(inputLine)]:
+  for i, c in input:
+    if c == input[(i+1) mod len(input)]:
       result += parseInt($c)
-
 
 proc part2*(input: string): int =
   let
-    inputLine = readFile(input)
-    halfLen = len(inputLine) div 2
+    halfLen = len(input) div 2
 
-  for i, c in inputLine:
-    if c == inputLine[(i+halfLen) mod len(inputLine)]:
+  for i, c in input:
+    if c == input[(i+halfLen) mod len(input)]:
       result += parseInt($c)
-
 
 proc test*() =
   doAssert part1("1122") == 3
@@ -31,4 +26,4 @@ proc test*() =
   doAssert part2("123123") == 12
   doAssert part2("12131415") == 4
 
-  echo "All tests passed."
+  echo "All tests pass."
