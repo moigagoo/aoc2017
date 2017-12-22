@@ -1,5 +1,8 @@
-import strutils
+import strutils, tables
 
+type
+  Position = tuple[i, j: int]
+  Grid = Table[Position, int]
 
 proc getCoverage(n: int): int = 2*n * (2*n + 1)
 
@@ -39,6 +42,42 @@ proc part1*(input: string): int =
         horizontalDistance = i
 
       return verticalDistance + horizontalDistance
+
+proc getValue(grid: Grid, position: Position): int =
+  for n in -1..1:
+    for m in -1..1:
+      if (n == 0) and (m == 0):
+        continue
+      result += grid.getOrDefault((position.i+n, position.j+m))
+
+proc `+`(x, y: Position): Position = (x.i+y.i, x.j+y.j)
+
+proc `+=`(x: var Position, y: Position) = x = (x.i+y.i, x.j+y.j)
+
+template nextValue() {.dirty.} =
+  currentPosition += deltas[i mod 4]
+  currentValue = grid.getValue(currentPosition)
+  if currentValue > input:return currentValue
+  grid[currentPosition] = currentValue
+  nextPosition = currentPosition + deltas[(i+1) mod 4]
+
+proc part2*(input: string): int =
+  let input = parseInt(input)
+
+  var
+    currentPosition, nextPosition: Position = (0, 0)
+    deltas: array[0..3, Position] = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    currentValue = 1
+    grid: Grid = {currentPosition: currentValue}.toTable()
+    i = 0
+
+  while true:
+    nextValue()
+
+    while grid.getOrDefault(nextPosition) != 0:
+      nextValue()
+
+    inc i
 
 proc test*() =
   doAssert part1("1") == 0
