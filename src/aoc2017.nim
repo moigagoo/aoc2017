@@ -10,7 +10,7 @@ Options:
   -h --help         Show this screen.
 """
 
-import aoc2017pkg/[day1, day2, day3, day4]
+import aoc2017pkg/[day1, day2, day3, day4, day5]
 import strutils
 
 import docopt
@@ -47,6 +47,10 @@ when isMainModule:
       of 1: echo answerLine % $day4.part1(readFile(input))
       of 2: echo answerLine % $day4.part2(readFile(input))
       else: discard
+    of 5:
+      case part
+      of 1: echo answerLine % $day5.part1(readFile(input))
+      else: discard
     else: discard
 
   elif args["test"]:
@@ -57,4 +61,5 @@ when isMainModule:
     of 2: day2.test()
     of 3: day3.test()
     of 4: day4.test()
+    of 5: day5.test()
     else: discard
