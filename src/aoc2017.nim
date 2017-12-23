@@ -50,6 +50,7 @@ when isMainModule:
     of 5:
       case part
       of 1: echo answerLine % $day5.part1(readFile(input))
+      of 2: echo answerLine % $day5.part2(readFile(input))
       else: discard
     else: discard
 
