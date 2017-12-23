@@ -16,8 +16,8 @@ proc part1*(input: string): int =
       inc result
 
 proc hash(counter: CountTable[char]): Hash =
-  for c in counter.keys:
-    result = result !& ord(c)
+  for k, v in counter:
+    result = result !& ord(k) !& v
 
   result = !$result
 
