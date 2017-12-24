@@ -7,7 +7,7 @@ proc part1*(input: string): int =
     history: seq[seq[int]] = @[]
     maxValue, maxValueIndex: int
 
-  while not (state in history):
+  while state notin history:
     history.add state
 
     maxValue = state.max
@@ -26,7 +26,7 @@ proc part2*(input: string): int =
     history: seq[seq[int]] = @[]
     maxValue, maxValueIndex: int
 
-  while not (state in history):
+  while state notin history:
     history.add state
 
     maxValue = state.max
