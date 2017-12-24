@@ -1,4 +1,4 @@
-import strutils, strscans, future
+import strutils, strscans, future, tables, math
 
 
 proc part1*(input: string): string =
@@ -22,6 +22,23 @@ proc part1*(input: string): string =
   result = lc[program | (program <- programsWithChildren, program notin programsThatAreChildren),
             string][0]
 
+proc part2*(input: string): int =
+  var programs: Table[string, tuple[weight: int, children: seq[string]]]
+
+  for line in input.splitLines():
+    var
+      name: string
+      weight: int
+      children: seq[string] = @[]
+
+    let components = line.split(" -> ")
+
+    discard scanf(line, "$w ($i)", name, weight)
+
+    if components.len > 1:
+      children = components[1].split(", ")
+
+    programs[name] = (weight, children)
 
 proc test*() =
   doAssert part1("""pbga (66)
