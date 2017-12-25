@@ -49,9 +49,9 @@ The spreadsheet consists of rows of apparently-random numbers. To make sure the 
 
 For example, given the following spreadsheet:
 
-5 1 9 5
-7 5 3
-2 4 6 8
+>  5 1 9 5
+>  7 5 3
+>  2 4 6 8
 
 - The first row's largest and smallest values are 9 and 1, and their difference is 8.
 - The second row's largest and smallest values are 7 and 3, and their difference is 4.
@@ -71,9 +71,9 @@ It sounds like the goal is to find the only two numbers in each row where one ev
 
 For example, given the following spreadsheet:
 
-5 9 2 8
-9 4 7 3
-3 8 6 5
+>  5 9 2 8
+>  9 4 7 3
+>  3 8 6 5
 
 - In the first row, the only two numbers that evenly divide are 8 and 2; the result of this division is 4.
 - In the second row, the two numbers are 9 and 3; the result is 3.
@@ -89,11 +89,11 @@ You come across an experimental new kind of memory stored on an infinite two-dim
 
 Each square on the grid is allocated in a spiral pattern starting at a location marked 1 and then counting up while spiraling outward. For example, the first few squares are allocated like this:
 
-17  16  15  14  13
-18   5   4   3  12
-19   6   1   2  11
-20   7   8   9  10
-21  22  23---> ...
+>  17  16  15  14  13
+>  18   5   4   3  12
+>  19   6   1   2  11
+>  20   7   8   9  10
+>  21  22  23---> ...
 
 While this is very space-efficient (no squares are skipped), requested data must be carried back to square 1 (the location of the only access port for this memory system) by programs that can only move up, down, left, or right. They always take the shortest path: the Manhattan Distance between the location of the data and square 1.
 
@@ -121,11 +121,11 @@ So, the first few squares' values are chosen as follows:
 
 Once a square is written, its value does not change. Therefore, the first few squares would receive the following values:
 
-147  142  133  122   59
-304    5    4    2   57
-330   10    1    1   54
-351   11   23   25   26
-362  747  806--->   ...
+>  147  142  133  122   59
+>  304    5    4    2   57
+>  330   10    1    1   54
+>  351   11   23   25   26
+>  362  747  806--->   ...
 
 What is the first value written that is larger than your puzzle input?
 
@@ -170,11 +170,11 @@ In addition, these instructions are a little strange; after each jump, the offse
 
 For example, consider the following list of jump offsets:
 
-  0
-  3
-  0
-  1
-  -3
+>  0
+>  3
+>  0
+>  1
+>  -3
 
 Positive jumps ("forward") move downward; negative jumps move upward. For legibility in this example, these offset values will be written all on one line, with the current instruction marked in parentheses. The following steps would be taken before an exit is found:
 
@@ -258,23 +258,23 @@ For example, if your list is the following:
 
 ...then you would be able to recreate the structure of the towers that looks like this:
 
-                  gyxo
-                /
-          ugml - ebii
-        /      \
-        |         jptl
-        |
-        |         pbga
-      /        /
-  tknk --- padx - havc
-      \        \
-        |         qoyq
-        |
-        |         ktlj
-        \      /
-          fwft - cntj
-                \
-                  xhth
+>                  gyxo
+>                /
+>          ugml - ebii
+>        /      \
+>        |         jptl
+>        |
+>        |         pbga
+>      /        /
+>  tknk --- padx - havc
+>      \        \
+>        |         qoyq
+>        |
+>        |         ktlj
+>        \      /
+>          fwft - cntj
+>                \
+>                  xhth
 
 In this example, tknk is at the bottom of the tower (the bottom program), and is holding up ugml, padx, and fwft. Those programs are, in turn, holding up other programs; in this example, none of those programs are holding up any other programs, and are all the tops of their own towers. (The actual tower balancing in front of you is much larger.)
 
