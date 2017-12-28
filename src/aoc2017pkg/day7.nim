@@ -1,4 +1,4 @@
-import strutils, strscans, future, tables, math
+import strutils, strscans, future, tables, math, options
 
 
 type
@@ -26,6 +26,30 @@ proc part1*(input: string): string =
   result = lc[program | (program <- programsWithChildren, program notin programsThatAreChildren),
             string][0]
 
+proc getLeaves(programs: Programs): Table[string, seq[Program]] =
+  result = initTable[string, seq[Program]]()
+
+  for name, program in programs:
+    if program.children.len == 0:
+      result.mgetOrPut(program.parent, @[]).add program
+
+proc findUnbalancedLeaf(programs: Programs): Option[int] =
+  result = none int
+
+  for children in programs.getLeaves().values:
+    var weightCounter = initCountTable[int]()
+
+    for child in children:
+      weightCounter.inc child.weight
+
+    if weightCounter.len > 1:
+      return some weightCounter.largest.key
+
+proc foldLeaves(programs: var Programs) =
+  for parent, children in programs.getLeaves():
+    programs[parent].weight += sum lc[child.weight | (child <- children), int]
+    programs[parent].children = @[]
+
 proc part2*(input: string): int =
   var programs = initTable[string, Program]()
 
@@ -47,7 +71,13 @@ proc part2*(input: string): int =
     programs.mgetOrPut(name, program) = (program.weight, programs.mgetOrPut(name, program).parent,
                                          program.children)
 
-  echo programs
+  var unbalancedLeaf = programs.findUnbalancedLeaf()
+
+  while unbalancedLeaf.isNone:
+    programs.foldLeaves()
+    unbalancedLeaf = programs.findUnbalancedLeaf()
+
+  unbalancedLeaf.get()
 
 proc test*() =
   doAssert part1("""pbga (66)
