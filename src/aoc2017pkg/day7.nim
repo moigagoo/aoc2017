@@ -1,6 +1,10 @@
 import strutils, strscans, future, tables, math
 
 
+type
+  Program = tuple[weight: int, parent: string, children: seq[string]]
+  Programs = Table[string, Program]
+
 proc part1*(input: string): string =
   var programsWithChildren, programsThatAreChildren: seq[string] = @[]
 
@@ -23,22 +27,27 @@ proc part1*(input: string): string =
             string][0]
 
 proc part2*(input: string): int =
-  var programs: Table[string, tuple[weight: int, children: seq[string]]]
+  var programs = initTable[string, Program]()
 
   for line in input.splitLines():
     var
       name: string
-      weight: int
-      children: seq[string] = @[]
+      program: Program = (0, nil, @[])
 
     let components = line.split(" -> ")
 
-    discard scanf(line, "$w ($i)", name, weight)
+    discard scanf(line, "$w ($i)", name, program.weight)
 
     if components.len > 1:
-      children = components[1].split(", ")
+      program.children = components[1].split(", ")
 
-    programs[name] = (weight, children)
+      for child in program.children:
+        programs.mgetOrPut(child, (0, name, @[])).parent = name
+
+    programs.mgetOrPut(name, program) = (program.weight, programs.mgetOrPut(name, program).parent,
+                                         program.children)
+
+  echo programs
 
 proc test*() =
   doAssert part1("""pbga (66)
